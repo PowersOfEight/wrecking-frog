@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate() 
     {  
         m_rigidBody.AddForce(Vector2.right * m_movementX  * speed );
-        m_rigidBody.AddForce(Vector2.up * m_movementY);
+        m_rigidBody.AddForce(Vector2.up * m_movementY, ForceMode2D.Impulse);
         m_movementY = 0;
     }
 
@@ -30,7 +30,8 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("fired jump mechanic");
         //  Do a box-cast downward
-        RaycastHit2D hit = Physics2D.Raycast(m_collider.transform.position, Vector2.down, m_collider.size.y / 2);
+        Debug.DrawRay(transform.position, Vector3.down, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(m_collider.transform.position, Vector2.down, (m_collider.size.y + 0.1f) / 2 , 1 << 8);
         if(hit.collider != null ) {
             Debug.Log("movement y enacted");
             m_movementY = jumpForce;
