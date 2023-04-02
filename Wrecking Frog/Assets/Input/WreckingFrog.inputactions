@@ -24,9 +24,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Fire",
+                    "name": "Jump",
                     "type": "Button",
                     "id": "21017a1f-d425-4fd9-be9a-3b63d84801ec",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Tongue",
+                    "type": "Button",
+                    "id": "74be4839-d75f-4dee-baf6-6c162e430de9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -201,23 +210,23 @@
                 },
                 {
                     "name": "",
-                    "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
+                    "id": "3a135e43-0c9a-40a9-8b9d-51cf729367c0",
+                    "path": "<Mouse>/position",
+                    "interactions": "Hold",
                     "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Fire",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "Hold",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Fire",
+                    "groups": ";Gamepad",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -228,7 +237,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Touch",
-                    "action": "Fire",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -239,7 +248,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
-                    "action": "Fire",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -250,7 +259,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
-                    "action": "Fire",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -258,10 +267,21 @@
                     "name": "",
                     "id": "0a0decff-f504-4741-a091-caedf2b02866",
                     "path": "<Keyboard>/space",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Fire",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0181f7fb-a6d9-4246-9b3a-d99d19497962",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(pressPoint=1.401298E-45,behavior=2)",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Tongue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -778,6 +798,34 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "New action map",
+            "id": "0282d516-a310-44b1-ba9b-f8c16dde6fd2",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "80b815de-dc59-42a7-815e-9f3e977b039d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "119946bd-43a6-499d-8d34-d650a5af0eaf",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

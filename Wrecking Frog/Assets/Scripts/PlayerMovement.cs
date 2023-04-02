@@ -26,16 +26,28 @@ public class PlayerMovement : MonoBehaviour
         m_movementY = 0;
     }
 
-    void OnFire() 
+    void OnJump() 
     {
-        Debug.Log("fired jump mechanic");
-        //  Do a box-cast downward
         Debug.DrawRay(transform.position, Vector3.down, Color.red);
         RaycastHit2D hit = Physics2D.Raycast(m_collider.transform.position, Vector2.down, (m_collider.size.y + 0.1f) / 2 , 1 << 8);
         if(hit.collider != null ) {
-            Debug.Log("movement y enacted");
             m_movementY = jumpForce;
         }
+    }
+
+    void OnTongue(InputValue value)
+    {
+        if(Mouse.current.leftButton.IsPressed())
+        {
+            //  TODO: logic to extend tongue when the mouse is pressed down
+            Debug.Log($"tongue actuated...");
+        } 
+        else
+        {
+            Debug.Log($"Mouse has been released");
+            //  TODO: logic to retract tongue when the mouse is not pressed
+        }
+        Debug.Log($"Current mouse position: {Mouse.current.position.ReadValue()}");
     }
 
     void OnMove(InputValue movementValue) 
