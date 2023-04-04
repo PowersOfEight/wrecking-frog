@@ -4,7 +4,7 @@
 
 public interface IGadget
 {
-    bool GadgetUse( Frog pFrog, System.Func<IGadget, bool> tDoneCallback );
+    bool GadgetUse( PlayerMovement pFrog, System.Func<IGadget, bool> tDoneCallback );
     bool GadgetCancel();
     string name { get; }
 }
