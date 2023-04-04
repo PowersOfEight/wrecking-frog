@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
             //  DrawLine(m_collider.transform.position, m_collider.transform.position + (m_relativeTarget.normalized * m_tongueOutTimeElapsed/tongueOutMaxDuration))
             Debug.DrawLine(m_collider.transform.position,m_collider.transform.position + m_tongueEnd,Color.cyan);
             m_tongueEnd += tongueSpeed * Time.deltaTime * m_tongueEnd.normalized;
-            m_tongueEnd.
+        
         }
     }
     
