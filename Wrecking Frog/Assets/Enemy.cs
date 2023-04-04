@@ -14,7 +14,8 @@ public class Enemy : MonoBehaviour
     public float invincibleDuration = 0.5f;
 
     [SerializeField]
-    private GameObject _guaranteedDrop = null;
+    //
+	//private GameObject _guaranteedDrop = null;
 
     public List<GameObject> randomItems;
 
