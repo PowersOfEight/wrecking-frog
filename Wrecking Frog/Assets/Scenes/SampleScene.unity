@@ -306,7 +306,9 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   speed: 10
   jumpForce: 10
-  tongueLength: 7
+  rayTolerance: 0.041
+  tongueLength: 8
+  tongueOutDuration: 0.5
 --- !u!120 &330072065
 LineRenderer:
   m_ObjectHideFlags: 0
