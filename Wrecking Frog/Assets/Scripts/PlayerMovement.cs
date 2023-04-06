@@ -24,8 +24,18 @@ public class PlayerMovement : MonoBehaviour
     public float tongueLength = 7f;
     [Tooltip("The amount of time, in seconds, the tongue should move outward")]
     public float tongueOutDuration = 3.0f;
-    
 
+    [Tooltip("The amount of time, in seconds, that it should take for the tongue to retract")]
+    public float tongueRetractionDuration = 0.25f;
+    
+    private enum eTongueMode {
+        Idle,
+        Extending,
+        Latched,
+        Retracting
+    }
+
+    private eTongueMode m_tongueMode;
     private float m_tongueOutTimeElapsed;
     //  Normalized vector representing the mouse direction
     private Vector2 m_mouseRelativeDirection;
@@ -50,10 +60,12 @@ public class PlayerMovement : MonoBehaviour
         m_tongueOutTimeElapsed = 0.0f;
         m_joint.enabled = false;
         m_mouseIsActive = false;
+        m_tongueMode = eTongueMode.Idle;
     }
 
     private void Update() 
     {
+        //  TODO: Use the relative state of the tongue to render
         if(m_mouseIsActive && m_tongueOutTimeElapsed <= tongueOutDuration)
         {
             m_tongueOutTimeElapsed += Time.deltaTime;
@@ -65,6 +77,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate() 
     {  
+        switch(m_tongueMode) 
+        {   
+            case eTongueMode.Idle:
+                break;
+            case eTongueMode.Extending:
+                break;
+            case eTongueMode.Latched:
+                break;
+            case eTongueMode.Retracting:
+                break;
+
+        }
         if( m_mouseIsActive)
         {
             updateMouseDirection();
@@ -77,10 +101,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void updateMouseDirection()
     {
-        // Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(
-        //         Mouse.current.position.ReadValue()
-        // );
-        // m_mouseRelativeDirection = mouseWorldPosition - transform.position;
         m_mouseRelativeDirection = (mainCamera.ScreenToWorldPoint(
                 Mouse.current.position.ReadValue()
             ) - transform.position);
@@ -89,9 +109,12 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump() 
     {
-        // Debug.DrawRay(transform.position, Vector3.down, Color.red, 2.0f);
-        RaycastHit2D hit = Physics2D.Raycast(m_collider.transform.position, Vector2.down, (m_collider.size.y + rayTolerance) / 2 , 1 << 8);
-        Debug.DrawLine(m_collider.transform.position, m_collider.transform.position + Vector3.down * (m_collider.size.y + rayTolerance)/2, Color.black, 3.0f);
+        RaycastHit2D hit = 
+            Physics2D.Raycast(
+                m_collider.transform.position, 
+                Vector2.down, 
+                (m_collider.size.y + rayTolerance) / 2 , 
+                1 << 8);
         if(hit.collider != null ) {
             m_movementY = jumpForce;
         }
@@ -106,19 +129,21 @@ public class PlayerMovement : MonoBehaviour
 
     void OnTongue(InputValue value)
     {
-        
-            // Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(
-            //     Mouse.current.position.ReadValue());
-            // Debug.Log($"Mouse world position: {mouseWorldPosition}");
-            
-            // Vector2 mouseRelativePosition = mouseWorldPosition - gameObject.transform.position;
-            // Debug.Log($"Mouse relative position: {mouseRelativePosition}");
-            // // mouseRelativePosition.Normalize();
-            // Debug.DrawRay(transform.position, mouseRelativePosition.normalized, Color.black, 3.0f);
-            // Debug.DrawLine(transform.position, mouseWorldPosition, Color.magenta, 3.0f);
+        switch(m_tongueMode) 
+        {   
+            case eTongueMode.Idle:
+                // m_tongueOutTimeElapsed = 0.0f;
+                break;
+            case eTongueMode.Extending:
+                break;
+            case eTongueMode.Latched:
+                break;
+            case eTongueMode.Retracting:
+                break;
+
+        }
         m_mouseIsActive = value.isPressed;
         m_tongueOutTimeElapsed = 0.0f;
-        // updateMouseDirection();
         
     }
 
