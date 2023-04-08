@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         m_collider = gameObject.GetComponent<BoxCollider2D>();
         m_line = gameObject.GetComponent<LineRenderer>();
         m_line.enabled = false;
+        m_line.SetPosition(0, transform.position);
         m_joint = gameObject.GetComponent<SpringJoint2D>();
         m_tongueOutTimeElapsed = 0.0f;
         m_tongueMagnitude = 0.0f;
@@ -67,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update() 
     {
+        m_line.SetPosition(0, transform.position);
         switch(m_tongueMode)
         {
             case eTongueMode.Extending:
@@ -79,7 +81,8 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     m_tongueMagnitude = tongueLength * m_tongueOutTimeElapsed / tongueOutDuration;
-                    Debug.DrawRay(transform.position, m_tongueMagnitude * m_tongueRelativeDirection, Color.magenta);
+                    // Debug.DrawRay(transform.position, m_tongueMagnitude * m_tongueRelativeDirection, Color.magenta);
+                    m_line.SetPosition(1, (Vector2) transform.position + m_tongueMagnitude * m_tongueRelativeDirection);
                     
                 }
                 break;
@@ -92,10 +95,12 @@ public class PlayerMovement : MonoBehaviour
                 if (m_tongueMagnitude <= 0.0f)
                 {
                     m_tongueMode = eTongueMode.Idle;
+                    m_line.enabled = false;
                 }
                 else
                 {
-                    Debug.DrawRay(transform.position, m_tongueMagnitude * m_tongueRelativeDirection, Color.magenta);
+                    m_line.SetPosition(1, (Vector2) transform.position + m_tongueMagnitude * m_tongueRelativeDirection);
+                    // Debug.DrawRay(transform.position, m_tongueMagnitude * m_tongueRelativeDirection, Color.magenta);
                 }
                 break;
         }
@@ -123,14 +128,18 @@ public class PlayerMovement : MonoBehaviour
                             break;
                         default:
                             //  If we hit something in the other layers, cancel retraction
-                            Debug.Log($"hit collider at {hit.transform.position} to cancel tongue, its layermask is {hit.transform.gameObject.layer}");
+                            // Debug.Log($"hit collider at {hit.transform.position} to cancel tongue, its layermask is {hit.transform.gameObject.layer}");
                             m_tongueMode = eTongueMode.Retracting;
                             break;
                     }
-                } 
-                updateMouseDirection();
+                }
+                else
+                {
+                    updateMouseDirection ();
+                }
                 break;
             case eTongueMode.Latched:
+                updateLatchPointDirection();
                 break;
             case eTongueMode.Retracting:
                 break;
@@ -146,6 +155,12 @@ public class PlayerMovement : MonoBehaviour
     
     }
 
+    private void updateLatchPointDirection()
+    {
+        m_tongueRelativeDirection = m_joint.connectedAnchor - (Vector2) transform.position;
+        m_tongueRelativeDirection.Normalize();
+
+    }
     private void updateMouseDirection()
     {
         m_tongueRelativeDirection = (mainCamera.ScreenToWorldPoint(
@@ -183,12 +198,14 @@ public class PlayerMovement : MonoBehaviour
                 {
                     m_tongueOutTimeElapsed = 0.0f;
                     m_tongueMode = eTongueMode.Extending;
+                    m_line.enabled = true;
                 }
                 break;
             case eTongueMode.Extending:
                 if(!value.isPressed || m_tongueOutTimeElapsed >= tongueOutDuration)
                 {
                     m_tongueMode = eTongueMode.Retracting;
+                    m_line.enabled = false;
                 }
                 break;
             case eTongueMode.Latched:
@@ -203,8 +220,8 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
         }
-        m_mouseIsActive = value.isPressed;
-        m_tongueOutTimeElapsed = 0.0f;
+        // m_mouseIsActive = value.isPressed;
+        // m_tongueOutTimeElapsed = 0.0f;
         
     }
 
