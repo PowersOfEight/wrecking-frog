@@ -80,7 +80,12 @@ public class PlayerMovement : MonoBehaviour
                 {
                     m_tongueMagnitude = tongueLength * m_tongueOutTimeElapsed / tongueOutDuration;
                     Debug.DrawRay(transform.position, m_tongueMagnitude * m_tongueRelativeDirection, Color.magenta);
+                    
                 }
+                break;
+            case eTongueMode.Latched:
+                Vector2 pos = transform.position;
+                Debug.DrawRay(transform.position, (m_joint.connectedAnchor - pos), Color.magenta);
                 break;
             case eTongueMode.Retracting:
                 m_tongueMagnitude -= tongueLength * Time.deltaTime / tongueRetractionDuration;
@@ -94,13 +99,6 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
         }
-        //  TODO: Use the relative state of the tongue to render
-        // if(m_mouseIsActive && m_tongueOutTimeElapsed <= tongueOutDuration)
-        // {
-        //     m_tongueOutTimeElapsed += Time.deltaTime;
-        //     float tongueRelativeMagnitude = tongueLength * m_tongueOutTimeElapsed / tongueOutDuration;
-        //     Debug.DrawRay(transform.position, tongueRelativeMagnitude * m_mouseRelativeDirection, Color.magenta);
-        // }
     }
     
 
@@ -111,6 +109,25 @@ public class PlayerMovement : MonoBehaviour
             case eTongueMode.Idle:
                 break;
             case eTongueMode.Extending:
+                //  Check for latch hit first
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, m_tongueRelativeDirection,m_tongueMagnitude);
+                if(hit.collider != null) 
+                {
+                    switch(hit.transform.gameObject.layer) 
+                    {
+                        // if we hit something in the "grapple" layer, change to latch
+                        case 9:
+                            m_joint.connectedAnchor = hit.point;
+                            m_joint.enabled = true;
+                            m_tongueMode = eTongueMode.Latched;
+                            break;
+                        default:
+                            //  If we hit something in the other layers, cancel retraction
+                            Debug.Log($"hit collider at {hit.transform.position} to cancel tongue, its layermask is {hit.transform.gameObject.layer}");
+                            m_tongueMode = eTongueMode.Retracting;
+                            break;
+                    }
+                } 
                 updateMouseDirection();
                 break;
             case eTongueMode.Latched:
@@ -177,6 +194,7 @@ public class PlayerMovement : MonoBehaviour
             case eTongueMode.Latched:
                 if(!value.isPressed)
                 {
+                    m_joint.enabled = false;
                     m_tongueMode = eTongueMode.Retracting;
                 }
                 break;
