@@ -36,9 +36,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private eTongueMode m_tongueMode;
+    private float m_tongueMagnitude;
     private float m_tongueOutTimeElapsed;
     //  Normalized vector representing the mouse direction
-    private Vector2 m_mouseRelativeDirection;
+    private Vector2 m_tongueRelativeDirection;
     private bool m_mouseIsActive;
     private LineRenderer m_line;
     private Rigidbody2D m_rigidBody;
@@ -58,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
         m_line.enabled = false;
         m_joint = gameObject.GetComponent<SpringJoint2D>();
         m_tongueOutTimeElapsed = 0.0f;
+        m_tongueMagnitude = 0.0f;
         m_joint.enabled = false;
         m_mouseIsActive = false;
         m_tongueMode = eTongueMode.Idle;
@@ -65,13 +67,40 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update() 
     {
-        //  TODO: Use the relative state of the tongue to render
-        if(m_mouseIsActive && m_tongueOutTimeElapsed <= tongueOutDuration)
+        switch(m_tongueMode)
         {
-            m_tongueOutTimeElapsed += Time.deltaTime;
-            float tongueRelativeMagnitude = tongueLength * m_tongueOutTimeElapsed / tongueOutDuration;
-            Debug.DrawRay(transform.position, tongueRelativeMagnitude * m_mouseRelativeDirection, Color.magenta);
+            case eTongueMode.Extending:
+                m_tongueOutTimeElapsed += Time.deltaTime;
+                if(m_tongueOutTimeElapsed >= tongueOutDuration) 
+                {
+                    m_tongueOutTimeElapsed = 0.0f;
+                    m_tongueMode = eTongueMode.Retracting;
+                }
+                else
+                {
+                    m_tongueMagnitude = tongueLength * m_tongueOutTimeElapsed / tongueOutDuration;
+                    Debug.DrawRay(transform.position, m_tongueMagnitude * m_tongueRelativeDirection, Color.magenta);
+                }
+                break;
+            case eTongueMode.Retracting:
+                m_tongueMagnitude -= tongueLength * Time.deltaTime / tongueRetractionDuration;
+                if (m_tongueMagnitude <= 0.0f)
+                {
+                    m_tongueMode = eTongueMode.Idle;
+                }
+                else
+                {
+                    Debug.DrawRay(transform.position, m_tongueMagnitude * m_tongueRelativeDirection, Color.magenta);
+                }
+                break;
         }
+        //  TODO: Use the relative state of the tongue to render
+        // if(m_mouseIsActive && m_tongueOutTimeElapsed <= tongueOutDuration)
+        // {
+        //     m_tongueOutTimeElapsed += Time.deltaTime;
+        //     float tongueRelativeMagnitude = tongueLength * m_tongueOutTimeElapsed / tongueOutDuration;
+        //     Debug.DrawRay(transform.position, tongueRelativeMagnitude * m_mouseRelativeDirection, Color.magenta);
+        // }
     }
     
 
@@ -82,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
             case eTongueMode.Idle:
                 break;
             case eTongueMode.Extending:
+                updateMouseDirection();
                 break;
             case eTongueMode.Latched:
                 break;
@@ -89,10 +119,10 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
         }
-        if( m_mouseIsActive)
-        {
-            updateMouseDirection();
-        }
+        // if( m_mouseIsActive)
+        // {
+        //     updateMouseDirection();
+        // }
         m_rigidBody.AddForce(Vector2.right * m_movementX  * speed );
         m_rigidBody.AddForce(Vector2.up * m_movementY, ForceMode2D.Impulse);
         m_movementY = 0;
@@ -101,10 +131,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void updateMouseDirection()
     {
-        m_mouseRelativeDirection = (mainCamera.ScreenToWorldPoint(
+        m_tongueRelativeDirection = (mainCamera.ScreenToWorldPoint(
                 Mouse.current.position.ReadValue()
             ) - transform.position);
-        m_mouseRelativeDirection.Normalize();
+        m_tongueRelativeDirection.Normalize();
     }
 
     void OnJump() 
@@ -132,13 +162,26 @@ public class PlayerMovement : MonoBehaviour
         switch(m_tongueMode) 
         {   
             case eTongueMode.Idle:
-                // m_tongueOutTimeElapsed = 0.0f;
+                if(value.isPressed)
+                {
+                    m_tongueOutTimeElapsed = 0.0f;
+                    m_tongueMode = eTongueMode.Extending;
+                }
                 break;
             case eTongueMode.Extending:
+                if(!value.isPressed || m_tongueOutTimeElapsed >= tongueOutDuration)
+                {
+                    m_tongueMode = eTongueMode.Retracting;
+                }
                 break;
             case eTongueMode.Latched:
+                if(!value.isPressed)
+                {
+                    m_tongueMode = eTongueMode.Retracting;
+                }
                 break;
             case eTongueMode.Retracting:
+                
                 break;
 
         }
