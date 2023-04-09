@@ -40,12 +40,10 @@ public class PlayerMovement : MonoBehaviour
     private float m_tongueOutTimeElapsed;
     //  Normalized vector representing the mouse direction
     private Vector2 m_tongueRelativeDirection;
-    private bool m_mouseIsActive;
     private LineRenderer m_line;
     private Rigidbody2D m_rigidBody;
     private BoxCollider2D m_collider;
     private SpringJoint2D m_joint;
-    private bool m_tongueActive;
     private float m_movementX;
     private float m_movementY;
 
@@ -62,7 +60,6 @@ public class PlayerMovement : MonoBehaviour
         m_tongueOutTimeElapsed = 0.0f;
         m_tongueMagnitude = 0.0f;
         m_joint.enabled = false;
-        m_mouseIsActive = false;
         m_tongueMode = eTongueMode.Idle;
     }
 
@@ -81,14 +78,11 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     m_tongueMagnitude = tongueLength * m_tongueOutTimeElapsed / tongueOutDuration;
-                    // Debug.DrawRay(transform.position, m_tongueMagnitude * m_tongueRelativeDirection, Color.magenta);
                     m_line.SetPosition(1, (Vector2) transform.position + m_tongueMagnitude * m_tongueRelativeDirection);
                     
                 }
                 break;
             case eTongueMode.Latched:
-                // Vector2 pos = transform.position;
-                // Debug.DrawRay(transform.position, (m_joint.connectedAnchor - pos), Color.magenta);
                 break;
             case eTongueMode.Retracting:
                 m_tongueMagnitude -= tongueLength * Time.deltaTime / tongueRetractionDuration;
@@ -100,7 +94,6 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     m_line.SetPosition(1, (Vector2) transform.position + m_tongueMagnitude * m_tongueRelativeDirection);
-                    // Debug.DrawRay(transform.position, m_tongueMagnitude * m_tongueRelativeDirection, Color.magenta);
                 }
                 break;
         }
@@ -114,21 +107,17 @@ public class PlayerMovement : MonoBehaviour
             case eTongueMode.Idle:
                 break;
             case eTongueMode.Extending:
-                //  Check for latch hit first
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, m_tongueRelativeDirection,m_tongueMagnitude);
                 if(hit.collider != null) 
                 {
                     switch(hit.transform.gameObject.layer) 
                     {
-                        // if we hit something in the "grapple" layer, change to latch
                         case 9:
                             m_joint.connectedAnchor = hit.point;
                             m_joint.enabled = true;
                             m_tongueMode = eTongueMode.Latched;
                             break;
                         default:
-                            //  If we hit something in the other layers, cancel retraction
-                            // Debug.Log($"hit collider at {hit.transform.position} to cancel tongue, its layermask is {hit.transform.gameObject.layer}");
                             m_tongueMode = eTongueMode.Retracting;
                             break;
                     }
@@ -145,10 +134,6 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
         }
-        // if( m_mouseIsActive)
-        // {
-        //     updateMouseDirection();
-        // }
         m_rigidBody.AddForce(Vector2.right * m_movementX  * speed );
         m_rigidBody.AddForce(Vector2.up * m_movementY, ForceMode2D.Impulse);
         m_movementY = 0;
@@ -186,9 +171,6 @@ public class PlayerMovement : MonoBehaviour
     {
 
     }
-
- 
-
     void OnTongue(InputValue value)
     {
         switch(m_tongueMode) 
@@ -205,7 +187,6 @@ public class PlayerMovement : MonoBehaviour
                 if(!value.isPressed || m_tongueOutTimeElapsed >= tongueOutDuration)
                 {
                     m_tongueMode = eTongueMode.Retracting;
-                    m_line.enabled = false;
                 }
                 break;
             case eTongueMode.Latched:
@@ -220,8 +201,6 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
         }
-        // m_mouseIsActive = value.isPressed;
-        // m_tongueOutTimeElapsed = 0.0f;
         
     }
 
