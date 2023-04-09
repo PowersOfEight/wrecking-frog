@@ -38,8 +38,8 @@
                     "id": "74be4839-d75f-4dee-baf6-6c162e430de9",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -276,9 +276,9 @@
                 },
                 {
                     "name": "",
-                    "id": "0181f7fb-a6d9-4246-9b3a-d99d19497962",
+                    "id": "33a418fb-31a6-4ac7-9e8f-d0f2195ea7bf",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Press(pressPoint=1.401298E-45,behavior=2)",
+                    "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Tongue",
