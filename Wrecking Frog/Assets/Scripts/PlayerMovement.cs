@@ -87,8 +87,8 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
             case eTongueMode.Latched:
-                Vector2 pos = transform.position;
-                Debug.DrawRay(transform.position, (m_joint.connectedAnchor - pos), Color.magenta);
+                // Vector2 pos = transform.position;
+                // Debug.DrawRay(transform.position, (m_joint.connectedAnchor - pos), Color.magenta);
                 break;
             case eTongueMode.Retracting:
                 m_tongueMagnitude -= tongueLength * Time.deltaTime / tongueRetractionDuration;
