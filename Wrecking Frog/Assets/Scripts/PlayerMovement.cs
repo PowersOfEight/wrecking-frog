@@ -107,7 +107,10 @@ public class PlayerMovement : MonoBehaviour
             case eTongueMode.Idle:
                 break;
             case eTongueMode.Extending:
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, m_tongueRelativeDirection,m_tongueMagnitude);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position,
+                    m_tongueRelativeDirection,
+                    m_tongueMagnitude,
+                    ~(1 << 10));
                 if(hit.collider != null) 
                 {
                     switch(hit.transform.gameObject.layer) 
@@ -161,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
                 m_collider.transform.position, 
                 Vector2.down, 
                 (m_collider.size.y + rayTolerance) / 2 , 
-                1 << 8);
+                (1 << 8) | 1);
         if(hit.collider != null ) {
             m_movementY = jumpForce;
         }
@@ -209,6 +212,16 @@ public class PlayerMovement : MonoBehaviour
         Vector2 movementVector = movementValue.Get<Vector2>();
         m_movementX = movementVector.x;
         
+    }
+
+    public float getImpactEnergy()
+    {
+        return m_rigidBody.velocity.magnitude;
+    }
+
+    public bool isLatched()
+    {
+        return m_tongueMode == eTongueMode.Latched;
     }
  
 }
