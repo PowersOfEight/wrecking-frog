@@ -246,7 +246,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 794769417012801289, guid: bd0a5fce986cbac44b14902de658c9e6, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 794769417012801289, guid: bd0a5fce986cbac44b14902de658c9e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -303,7 +303,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 794769417012801289, guid: bd0a5fce986cbac44b14902de658c9e6, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 794769417012801289, guid: bd0a5fce986cbac44b14902de658c9e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -367,6 +367,7 @@ GameObject:
   - component: {fileID: 330072064}
   - component: {fileID: 330072065}
   - component: {fileID: 330072066}
+  - component: {fileID: 330072067}
   m_Layer: 10
   m_Name: PlayerMockup
   m_TagString: Untagged
@@ -387,7 +388,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.1, y: 0}
+  m_Offset: {x: 0, y: -0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -398,7 +399,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2, y: 1.65}
+  m_Size: {x: 2.2, y: 1.9147499}
   m_EdgeRadius: 0
 --- !u!212 &330072060
 SpriteRenderer:
@@ -675,6 +676,26 @@ SpringJoint2D:
   m_Distance: 3.4207747
   m_DampingRatio: 0
   m_Frequency: 1
+--- !u!95 &330072067
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330072058}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 67b8970ca65bfde4bb62039347473b47, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,7 +1336,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 794769417012801289, guid: bd0a5fce986cbac44b14902de658c9e6, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 794769417012801289, guid: bd0a5fce986cbac44b14902de658c9e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1376,7 +1397,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 794769417012801289, guid: bd0a5fce986cbac44b14902de658c9e6, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 794769417012801289, guid: bd0a5fce986cbac44b14902de658c9e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1433,7 +1454,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 794769417012801289, guid: bd0a5fce986cbac44b14902de658c9e6, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 794769417012801289, guid: bd0a5fce986cbac44b14902de658c9e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1490,7 +1511,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 794769417012801289, guid: bd0a5fce986cbac44b14902de658c9e6, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 794769417012801289, guid: bd0a5fce986cbac44b14902de658c9e6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1776,4 +1797,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-
