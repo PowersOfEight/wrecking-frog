@@ -35,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
         Retracting
     }
 
+
+    private SpriteRenderer m_renderer;
     private eTongueMode m_tongueMode;
     private float m_tongueMagnitude;
     private float m_tongueOutTimeElapsed;
@@ -54,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         m_rigidBody = gameObject.GetComponent<Rigidbody2D>();
         m_collider = gameObject.GetComponent<BoxCollider2D>();
         m_line = gameObject.GetComponent<LineRenderer>();
+        m_renderer = gameObject.GetComponent<SpriteRenderer>();
         m_line.enabled = false;
         m_line.SetPosition(0, transform.position);
         m_joint = gameObject.GetComponent<SpringJoint2D>();
@@ -65,6 +68,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update() 
     {
+        if (m_movementX != 0) {
+            m_renderer.flipX = m_movementX < 0;
+        }
         m_line.SetPosition(0, transform.position);
         switch(m_tongueMode)
         {
@@ -159,12 +165,19 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump() 
     {
-        RaycastHit2D hit = 
-            Physics2D.Raycast(
-                m_collider.transform.position, 
-                Vector2.down, 
-                (m_collider.size.y + rayTolerance) / 2 , 
-                (1 << 8) | 1);
+        RaycastHit2D hit = Physics2D.BoxCast(
+            m_collider.bounds.center, 
+            m_collider.bounds.size, 
+            0.0f, 
+            Vector2.down, 
+            rayTolerance,
+            (1 << 8 | 1));
+        // RaycastHit2D hit = 
+        //     Physics2D.Raycast(
+        //         m_collider.transform.position, 
+        //         Vector2.down, 
+        //         (m_collider.size.y + rayTolerance) / 2 , 
+        //         (1 << 8) | 1);
         if(hit.collider != null ) {
             m_movementY = jumpForce;
         }
