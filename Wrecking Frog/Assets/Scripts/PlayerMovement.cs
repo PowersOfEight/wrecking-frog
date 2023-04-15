@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
         Retracting
     }
 
-
     private Animator m_animator;
     private SpriteRenderer m_renderer;
     private eTongueMode m_tongueMode;
@@ -74,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
             m_renderer.flipX = m_movementX < 0;
         }
         m_animator.SetFloat("horizontalSpeed", Mathf.Abs(m_rigidBody.velocity.x)); 
+        m_animator.SetFloat("verticalVelocity", m_rigidBody.velocity.y);
         m_line.SetPosition(0, transform.position);
         switch(m_tongueMode)
         {
