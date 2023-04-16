@@ -35,6 +35,9 @@ public class PlayerMovement : MonoBehaviour
         Retracting
     }
 
+    public Animator animator;
+    public SpriteRenderer renderer;
+    public Rigidbody2D animatorRigidBody;
     private eTongueMode m_tongueMode;
     private float m_tongueMagnitude;
     private float m_tongueOutTimeElapsed;
@@ -54,6 +57,10 @@ public class PlayerMovement : MonoBehaviour
         m_rigidBody = gameObject.GetComponent<Rigidbody2D>();
         m_collider = gameObject.GetComponent<BoxCollider2D>();
         m_line = gameObject.GetComponent<LineRenderer>();
+        // m_renderer = gameObject.GetComponent<SpriteRenderer>();
+        // renderer = gameObject.GetComponentInChildren<SpriteRenderer>(false);
+        // animator = gameObject.GetComponentInChildren<Animator>(false);
+        // m_animator = gameObject.GetComponent<Animator>();
         m_line.enabled = false;
         m_line.SetPosition(0, transform.position);
         m_joint = gameObject.GetComponent<SpringJoint2D>();
@@ -65,6 +72,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update() 
     {
+        if (m_movementX != 0) 
+        {
+            renderer.flipX = m_movementX < 0;
+        }
+        if (m_tongueMode != eTongueMode.Idle)
+        {
+            float angle = Mathf.Atan2(m_tongueRelativeDirection.y, m_tongueRelativeDirection.x) * Mathf.Rad2Deg;
+            // m_renderer.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            animatorRigidBody.MoveRotation(angle - 90);
+            
+        }
+        animator.SetFloat("horizontalSpeed", Mathf.Abs(m_rigidBody.velocity.x)); 
+        animator.SetFloat("verticalVelocity", m_rigidBody.velocity.y);
         m_line.SetPosition(0, transform.position);
         switch(m_tongueMode)
         {
@@ -90,6 +110,8 @@ public class PlayerMovement : MonoBehaviour
                 {
                     m_tongueMode = eTongueMode.Idle;
                     m_line.enabled = false;
+                    animatorRigidBody.MoveRotation(0);
+                    animator.SetBool("tongueOut", false);
                 }
                 else
                 {
@@ -159,12 +181,19 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump() 
     {
-        RaycastHit2D hit = 
-            Physics2D.Raycast(
-                m_collider.transform.position, 
-                Vector2.down, 
-                (m_collider.size.y + rayTolerance) / 2 , 
-                (1 << 8) | 1);
+        RaycastHit2D hit = Physics2D.BoxCast(
+            m_collider.bounds.center, 
+            m_collider.bounds.size, 
+            0.0f, 
+            Vector2.down, 
+            rayTolerance,
+            (1 << 8 | 1));
+        // RaycastHit2D hit = 
+        //     Physics2D.Raycast(
+        //         m_collider.transform.position, 
+        //         Vector2.down, 
+        //         (m_collider.size.y + rayTolerance) / 2 , 
+        //         (1 << 8) | 1);
         if(hit.collider != null ) {
             m_movementY = jumpForce;
         }
@@ -181,6 +210,7 @@ public class PlayerMovement : MonoBehaviour
             case eTongueMode.Idle:
                 if(value.isPressed)
                 {
+                    animator.SetBool("tongueOut", true);
                     m_tongueOutTimeElapsed = 0.0f;
                     m_tongueMode = eTongueMode.Extending;
                     m_line.enabled = true;
