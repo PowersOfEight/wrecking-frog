@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Frog_Jump_Tongue
+  m_Name: Form_Wrecking_Ball
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -19,8 +19,14 @@ AnimationClip:
   m_FloatCurves: []
   m_PPtrCurves:
   - curve:
-    - time: 0.1
-      value: {fileID: 21300000, guid: 011a17a3b0e28234e8d0f87fe9cd1fa4, type: 3}
+    - time: 0
+      value: {fileID: 21300000, guid: e87a100e729b3654e8e3d545cbb4cc3e, type: 3}
+    - time: 0.16666667
+      value: {fileID: 21300000, guid: 97d254550fee8584a8ab6c5cee6139c8, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: 9a58499bf4fa2ca4da0fa358d69d7b4e, type: 3}
+    - time: 0.53333336
+      value: {fileID: 21300000, guid: e084d1c7e94c2dc4dbb00d8c64f99ace, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -40,13 +46,16 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 011a17a3b0e28234e8d0f87fe9cd1fa4, type: 3}
+    - {fileID: 21300000, guid: e87a100e729b3654e8e3d545cbb4cc3e, type: 3}
+    - {fileID: 21300000, guid: 97d254550fee8584a8ab6c5cee6139c8, type: 3}
+    - {fileID: 21300000, guid: 9a58499bf4fa2ca4da0fa358d69d7b4e, type: 3}
+    - {fileID: 21300000, guid: e084d1c7e94c2dc4dbb00d8c64f99ace, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.11666667
+    m_StopTime: 0.55
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
