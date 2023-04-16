@@ -103,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
             case eTongueMode.Latched:
+                animator.SetBool("attached", true);
                 break;
             case eTongueMode.Retracting:
                 m_tongueMagnitude -= tongueLength * Time.deltaTime / tongueRetractionDuration;
@@ -112,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
                     m_line.enabled = false;
                     animatorRigidBody.MoveRotation(0);
                     animator.SetBool("tongueOut", false);
+                    animator.SetBool("attached", false);
                 }
                 else
                 {
@@ -225,6 +227,7 @@ public class PlayerMovement : MonoBehaviour
             case eTongueMode.Latched:
                 if(!value.isPressed)
                 {
+                    animator.SetBool("attached", true);
                     m_joint.enabled = false;
                     m_tongueMode = eTongueMode.Retracting;
                 }
