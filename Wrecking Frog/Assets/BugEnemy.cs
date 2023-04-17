@@ -44,7 +44,12 @@ public class BugEnemy : Enemy, IFacingMover
 
     void DecideDirection()
     {
-        facing = Random.Range(0, 1);
+        int currentFacing = facing;
+        facing = Random.Range(0, 3); 
+        if(directions[facing].x != 0)
+        {
+            sRend.flipX = directions[facing].x > 0;
+        }
         timeNextDecision = Time.time + Random.Range(timeThinkMin, timeThinkMax);
     }
 
