@@ -26,6 +26,7 @@ public class BugEnemy : Enemy, IFacingMover
     {
         base.Awake();
         inRm = GetComponent<InRoom>();
+        sRend.flipX = directions[facing].x > 0;
     }
 
     protected override void Update()
@@ -44,8 +45,7 @@ public class BugEnemy : Enemy, IFacingMover
 
     void DecideDirection()
     {
-        int currentFacing = facing;
-        facing = Random.Range(0, 3); 
+        facing = Random.Range(0, directions.Length); 
         if(directions[facing].x != 0)
         {
             sRend.flipX = directions[facing].x > 0;

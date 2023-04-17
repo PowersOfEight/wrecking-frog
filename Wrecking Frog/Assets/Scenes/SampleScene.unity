@@ -614,6 +614,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6865449650505810137, guid: bbf82a8159f06403895a9a0860fbc2b3, type: 3}
+      propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6865449650505810137, guid: bbf82a8159f06403895a9a0860fbc2b3, type: 3}
+      propertyPath: timeNextDecision
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6865449650505810138, guid: bbf82a8159f06403895a9a0860fbc2b3, type: 3}
+      propertyPath: keepInRoom
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6865449650505810139, guid: bbf82a8159f06403895a9a0860fbc2b3, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
       value: 0.5

@@ -5,7 +5,16 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     protected static Vector2[] directions = new Vector2[] {
-        Vector2.right, Vector2.left, Vector2.zero };
+        Vector2.right, 
+        Vector2.left,
+        Vector2.up,
+        Vector2.down,
+        (Vector2.right + Vector2.down).normalized,
+        (Vector2.right + Vector2.up).normalized,
+        (Vector2.left + Vector2.down).normalized,
+        (Vector2.left + Vector2.right).normalized,
+        Vector2.zero 
+        };
 
     [Header("Inscribed: Enemy")]
     public float maxHealth = 1;
