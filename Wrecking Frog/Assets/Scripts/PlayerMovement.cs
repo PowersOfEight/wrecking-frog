@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(transform.position,
                     m_tongueRelativeDirection,
                     m_tongueMagnitude,
-                    ~(1 << 10));
+                    ~((1 << 10)|(1 << 11)));
                 if(hit.collider != null) 
                 {
                     switch(hit.transform.gameObject.layer) 
