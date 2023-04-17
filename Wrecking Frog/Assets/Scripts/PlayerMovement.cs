@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public Animator animator;
-    public SpriteRenderer renderer;
+    public SpriteRenderer spriteRenderer;
     public Rigidbody2D animatorRigidBody;
     private eTongueMode m_tongueMode;
     private float m_tongueMagnitude;
@@ -50,17 +50,11 @@ public class PlayerMovement : MonoBehaviour
     private float m_movementX;
     private float m_movementY;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         m_rigidBody = gameObject.GetComponent<Rigidbody2D>();
         m_collider = gameObject.GetComponent<BoxCollider2D>();
         m_line = gameObject.GetComponent<LineRenderer>();
-        // m_renderer = gameObject.GetComponent<SpriteRenderer>();
-        // renderer = gameObject.GetComponentInChildren<SpriteRenderer>(false);
-        // animator = gameObject.GetComponentInChildren<Animator>(false);
-        // m_animator = gameObject.GetComponent<Animator>();
         m_line.enabled = false;
         m_line.SetPosition(0, transform.position);
         m_joint = gameObject.GetComponent<SpringJoint2D>();
@@ -74,12 +68,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (m_movementX != 0) 
         {
-            renderer.flipX = m_movementX < 0;
+            spriteRenderer.flipX = m_movementX < 0;
         }
         if (m_tongueMode != eTongueMode.Idle)
         {
-            float angle = Mathf.Atan2(m_tongueRelativeDirection.y, m_tongueRelativeDirection.x) * Mathf.Rad2Deg;
-            // m_renderer.transform.localRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            float angle = Mathf.Atan2(
+                m_tongueRelativeDirection.y, 
+                m_tongueRelativeDirection.x) * Mathf.Rad2Deg;
             animatorRigidBody.MoveRotation(angle - 90);
             
         }
@@ -188,21 +183,11 @@ public class PlayerMovement : MonoBehaviour
             Vector2.down, 
             rayTolerance,
             (1 << 8 | 1));
-        // RaycastHit2D hit = 
-        //     Physics2D.Raycast(
-        //         m_collider.transform.position, 
-        //         Vector2.down, 
-        //         (m_collider.size.y + rayTolerance) / 2 , 
-        //         (1 << 8) | 1);
         if(hit.collider != null ) {
             m_movementY = jumpForce;
         }
     }
 
-    void OnLook()
-    {
-
-    }
     void OnTongue(InputValue value)
     {
         switch(m_tongueMode) 
