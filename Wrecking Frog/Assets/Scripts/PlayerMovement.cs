@@ -182,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
             0.0f, 
             Vector2.down, 
             rayTolerance,
-            (1 << 8 | 1));
+            (1 << 8 | 1 << 9));
         if(hit.collider != null ) {
             m_movementY = jumpForce;
         }
