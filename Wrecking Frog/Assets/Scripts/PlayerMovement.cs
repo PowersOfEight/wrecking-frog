@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private LineRenderer m_line;
     private Rigidbody2D m_rigidBody;
     private BoxCollider2D m_collider;
-    private SpringJoint2D m_joint;
+    private DistanceJoint2D m_joint;
     private float m_movementX;
     private float m_movementY;
 
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         m_line = gameObject.GetComponent<LineRenderer>();
         m_line.enabled = false;
         m_line.SetPosition(0, transform.position);
-        m_joint = gameObject.GetComponent<SpringJoint2D>();
+        m_joint = gameObject.GetComponent<DistanceJoint2D>();
         m_tongueOutTimeElapsed = 0.0f;
         m_tongueMagnitude = 0.0f;
         m_joint.enabled = false;
