@@ -1319,6 +1319,22 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 588368048}
+    - target: {fileID: 109272935118877216, guid: 881c236596bf3704bb609fcbea3f4e5c, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 109272935118877216, guid: 881c236596bf3704bb609fcbea3f4e5c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 109272935118877219, guid: 881c236596bf3704bb609fcbea3f4e5c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 900139400318971463, guid: 881c236596bf3704bb609fcbea3f4e5c, type: 3}
+      propertyPath: blinkFrames
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3611186052792372792, guid: 881c236596bf3704bb609fcbea3f4e5c, type: 3}
       propertyPath: m_Enabled
       value: 0

@@ -38,9 +38,13 @@ public class Dragonfly : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            other.gameObject.GetComponent<PlayerHealth>().TakeDamage();
-            Vector2 direction = (transform.position - other.transform.position).normalized;
-            other.attachedRigidbody.AddForce(direction * -force, ForceMode2D.Impulse);
+            PlayerHealth player = other.gameObject.GetComponent<PlayerHealth>();
+            if(!player.isInvincible())
+            {
+                Vector2 direction = (transform.position - other.transform.position).normalized;
+                other.attachedRigidbody.AddForce(direction * -force, ForceMode2D.Impulse);
+                player.TakeDamage();
+            }
         }
     }
 

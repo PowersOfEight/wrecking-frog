@@ -54,11 +54,13 @@ public class Tadpole : MonoBehaviour
   {
     m_currentMode = ePickupMode.Dropped;
     m_rigidBody.velocity = Vector2.zero;
+    m_rigidBody.angularVelocity = 0;
     m_rigidBody.isKinematic = true;
     m_collider.isTrigger = true;
     m_parentJoint.enabled = false;
     m_animatorRigidbody.MoveRotation(0);
     m_respawnTimer = respawnTime;
+    
   }
 
   void Update() 
