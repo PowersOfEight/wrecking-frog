@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class Dragonfly : MonoBehaviour
 {
-
-    public bool drawPath = false;
     public float speed = 3;
-    public Transform[] waypoints;
 
-
+    private Transform[] m_waypoints;
     private float[] m_colliderXOffsets;
     private int m_waypointIndex;
     private SpriteRenderer m_renderer;
     private CompositeCollider2D m_collider;
     private BoxCollider2D[] m_colliders;
     private Rigidbody2D m_rigidBody;
+
+   
 
     void Start()
     {
@@ -29,6 +28,13 @@ public class Dragonfly : MonoBehaviour
         }
         m_rigidBody = GetComponent<Rigidbody2D>();
         m_waypointIndex = 0;
+        DragonflyEnemy parent = GetComponentInParent<DragonflyEnemy>(true);
+        Pathway pathway = parent.GetComponentInChildren<Pathway>(true);
+        m_waypoints = pathway.getPathway();
+        for(int i = 0; i < m_waypoints.Length; ++i) 
+        {
+            Debug.Log($"Current waypoint: {m_waypoints[i]}");
+        }
     }
 
     void flipComponentsX(bool alter)
@@ -45,7 +51,7 @@ public class Dragonfly : MonoBehaviour
     void Update()
     {
         
-        Vector3 direction = waypoints[m_waypointIndex].position - transform.position;
+        Vector3 direction = m_waypoints[m_waypointIndex].position - transform.position;
         if(direction.x > 0 && !m_renderer.flipX)
         {
             m_renderer.flipX = true;
@@ -59,9 +65,9 @@ public class Dragonfly : MonoBehaviour
         }
     
         Vector3 movement = direction.normalized * speed * Time.deltaTime;
-        if(movement.magnitude > direction.magnitude) 
+        if(movement.magnitude > direction.magnitude || direction.magnitude == 0) 
         {
-            m_waypointIndex = (m_waypointIndex + 1) % waypoints.Length;
+            m_waypointIndex = (m_waypointIndex + 1) % m_waypoints.Length;
         }
         transform.Translate(movement);
         
