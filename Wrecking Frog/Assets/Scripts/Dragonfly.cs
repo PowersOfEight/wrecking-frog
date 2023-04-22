@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Dragonfly : MonoBehaviour
 {
+    public float force = 16;
     public float speed = 3;
 
     private Transform[] m_waypoints;
@@ -31,6 +32,16 @@ public class Dragonfly : MonoBehaviour
         DragonflyEnemy parent = GetComponentInParent<DragonflyEnemy>(true);
         Pathway pathway = parent.GetComponentInChildren<Pathway>(true);
         m_waypoints = pathway.getPathway();
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            other.gameObject.GetComponent<PlayerHealth>().TakeDamage();
+            Vector2 direction = (transform.position - other.transform.position).normalized;
+            other.attachedRigidbody.AddForce(direction * -force, ForceMode2D.Impulse);
+        }
     }
 
     void flipComponentsX(bool alter)

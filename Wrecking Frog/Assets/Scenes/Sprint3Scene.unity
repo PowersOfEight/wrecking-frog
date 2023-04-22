@@ -1634,9 +1634,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 99154228}
     m_Modifications:
+    - target: {fileID: 6544778150256868460, guid: 4d4e49391fca6ca4caccd4aa69926390, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6544778150256868462, guid: 4d4e49391fca6ca4caccd4aa69926390, type: 3}
       propertyPath: m_Name
       value: Tadpole (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6544778150256868467, guid: 4d4e49391fca6ca4caccd4aa69926390, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6544778150256868470, guid: 4d4e49391fca6ca4caccd4aa69926390, type: 3}
       propertyPath: m_RootOrder

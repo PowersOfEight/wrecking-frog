@@ -26,4 +26,22 @@ public class PlayerHealth : MonoBehaviour
         m_tadpoleStack.Push(tadpole);
     }
 
+    public void TakeDamage()
+    {
+        if(m_tadpoleStack.Count > 0)
+        {
+            Tadpole tadpole = m_tadpoleStack.Pop();
+            tadpole.Drop();
+        }
+        else
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("You totally died just now");
+        //  TODO: add death logic here
+    }
 }

@@ -49,9 +49,11 @@ public class Tadpole : MonoBehaviour
     m_parentJoint.connectedBody = other;
     m_parentJoint.enabled = false;
   }
+
   public void Drop()
   {
     m_currentMode = ePickupMode.Dropped;
+    m_rigidBody.velocity = Vector2.zero;
     m_rigidBody.isKinematic = true;
     m_collider.isTrigger = true;
     m_parentJoint.enabled = false;
