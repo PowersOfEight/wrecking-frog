@@ -1300,8 +1300,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 109272934995838024, guid: 881c236596bf3704bb609fcbea3f4e5c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 109272934995838024, guid: 881c236596bf3704bb609fcbea3f4e5c, type: 3}
       propertyPath: m_Distance
       value: 17.366035
+      objectReference: {fileID: 0}
+    - target: {fileID: 109272934995838026, guid: 881c236596bf3704bb609fcbea3f4e5c, type: 3}
+      propertyPath: jumpForce
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 109272934995838026, guid: 881c236596bf3704bb609fcbea3f4e5c, type: 3}
       propertyPath: mainCamera
@@ -1311,7 +1319,12 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 588368048}
-    m_RemovedComponents: []
+    - target: {fileID: 3611186052792372792, guid: 881c236596bf3704bb609fcbea3f4e5c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 109272934995838024, guid: 881c236596bf3704bb609fcbea3f4e5c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 881c236596bf3704bb609fcbea3f4e5c, type: 3}
 --- !u!1 &984468734
 GameObject:

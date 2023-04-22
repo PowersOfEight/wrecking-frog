@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 109272934995803061}
   - component: {fileID: 109272934995838026}
   - component: {fileID: 109272934995838027}
-  - component: {fileID: 109272934995838024}
+  - component: {fileID: 3611186052792372792}
+  - component: {fileID: 900139400318971463}
   m_Layer: 10
   m_Name: Frog
   m_TagString: Untagged
@@ -128,8 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
-  speed: 10
-  jumpForce: 10
+  speed: 12
+  jumpForce: 12
   rayTolerance: 0.041
   tongueLength: 8
   tongueOutDuration: 0.5
@@ -254,14 +255,14 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!231 &109272934995838024
-SpringJoint2D:
+--- !u!232 &3611186052792372792
+DistanceJoint2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109272934995803056}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_EnableCollision: 0
   m_ConnectedRigidBody: {fileID: 0}
@@ -272,8 +273,19 @@ SpringJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
   m_Distance: 17.366035
-  m_DampingRatio: 0
-  m_Frequency: 1
+  m_MaxDistanceOnly: 1
+--- !u!114 &900139400318971463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109272934995803056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31f973f506edd1f49923e553635a2fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &109272935118877229
 GameObject:
   m_ObjectHideFlags: 0

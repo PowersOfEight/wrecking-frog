@@ -31,10 +31,6 @@ public class Dragonfly : MonoBehaviour
         DragonflyEnemy parent = GetComponentInParent<DragonflyEnemy>(true);
         Pathway pathway = parent.GetComponentInChildren<Pathway>(true);
         m_waypoints = pathway.getPathway();
-        for(int i = 0; i < m_waypoints.Length; ++i) 
-        {
-            Debug.Log($"Current waypoint: {m_waypoints[i]}");
-        }
     }
 
     void flipComponentsX(bool alter)
