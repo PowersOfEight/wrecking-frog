@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public int blinkFrames = 4;
     [Tooltip("Determines how long the player will remain invincible after taking damage")]
     public float invincibilityTime = 5; 
+    public float lowerDeathBoundary = -20f;
     private bool m_invincible;
     private float m_invincibleTimeElapsed;
     private int m_invincibleFrameIndex;
@@ -18,6 +19,8 @@ public class PlayerHealth : MonoBehaviour
     private SpriteRenderer m_renderer;
     private Color m_originalColor;
     private Color m_zeroAlphaColor;
+
+    private GameState m_gameState;
 
     void Start() 
     {
@@ -29,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
         m_renderer = GetComponentInChildren<SpriteRenderer>();
         m_originalColor = m_renderer.color;
         m_zeroAlphaColor =  new Color(m_originalColor.r, m_originalColor.g, m_originalColor.b, 0.0f);
+        m_gameState = GameObject.Find("GameState").GetComponent<GameState>();
     }
 
     public void collectTadpole(Tadpole tadpole)
@@ -42,6 +46,10 @@ public class PlayerHealth : MonoBehaviour
             tadpole.connectJointToRigidbody(m_rigidBody);
         }
         m_tadpoleStack.Push(tadpole);
+        if(m_gameState.allTadpolesCollected(m_tadpoleStack))
+        {
+            m_gameState.PlayerWin(this);
+        }
     }
 
     
@@ -63,27 +71,30 @@ public class PlayerHealth : MonoBehaviour
 
     void Update() 
     {
-        // m_invincibleFrameIndex = (m_invincibleFrameIndex + 1) % blinkFrames;
-        // if(m_invincibleFrameIndex == 0)
-        // {
-        //     m_renderer.color = m_renderer.color == m_zeroAlphaColor ? m_originalColor : m_zeroAlphaColor;
-        // }
-        if(m_invincible)
+        if(transform.position.y < lowerDeathBoundary) 
         {
-            if(m_invincibleTimeElapsed >= invincibilityTime)
+            Die();
+        }
+        else
+        {
+            if(m_invincible)
             {
-                m_invincible = false;
-                m_renderer.color = m_originalColor;
-            }
-            else
-            {
-                m_invincibleFrameIndex = (m_invincibleFrameIndex + 1) % blinkFrames;
-                if(m_invincibleFrameIndex == 0)
+                if(m_invincibleTimeElapsed >= invincibilityTime)
                 {
-                    m_renderer.color = m_renderer.color == m_zeroAlphaColor ? m_originalColor : m_zeroAlphaColor;
+                    m_invincible = false;
+                    m_renderer.color = m_originalColor;
                 }
-                m_invincibleTimeElapsed += Time.deltaTime;
+                else
+                {
+                    m_invincibleFrameIndex = (m_invincibleFrameIndex + 1) % blinkFrames;
+                    if(m_invincibleFrameIndex == 0)
+                    {
+                        m_renderer.color = m_renderer.color == m_zeroAlphaColor ? m_originalColor : m_zeroAlphaColor;
+                    }
+                    m_invincibleTimeElapsed += Time.deltaTime;
+                }
             }
+
         }
     }
 
@@ -91,9 +102,9 @@ public class PlayerHealth : MonoBehaviour
     {
         return m_invincible;
     }
+
     private void Die()
     {
-        Debug.Log("You totally died just now");
-        //  TODO: add death logic here
+        m_gameState.PlayerLose(this);
     }
 }
